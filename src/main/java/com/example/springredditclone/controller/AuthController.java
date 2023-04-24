@@ -12,6 +12,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/api/auth")
 @AllArgsConstructor
 public class AuthController {
+
     private final AuthService authService;
 
     @PostMapping("/signup")
@@ -19,5 +20,11 @@ public class AuthController {
         authService.signup(registerRequest);
         return new ResponseEntity<>("User Registration Successful",
                 OK);
+    }
+
+    @GetMapping("accountVerification/{token}")
+    public ResponseEntity<String> verifyAccount(@PathVariable String token) {
+        authService.verifyAccount(token);
+        return new ResponseEntity<>("Account Activated Successfully", OK);
     }
 }
